@@ -10,7 +10,7 @@ $statement->bindValue(1, $id);
 $statement->execute();
 
 if($statement === false) {
-    header('Location: index.php?success=0');
+    header('Location: /?success=0');
 } else {
-    header('Location: index.php?success=1');
+    header('Location: /?success=1');
 }
