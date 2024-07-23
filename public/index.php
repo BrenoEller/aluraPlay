@@ -16,6 +16,13 @@ $routes = require_once __DIR__ . '/../config/routes.php';
 
 $key = "$httpMethod|$pathInfo";
 
+session_start();
+$isLoginRoute = $pathInfo === '/login';
+if (!array_key_exists('logado', $_SESSION) && !$isLoginRoute) {
+    header('Location: /login');
+    return;
+}
+
 if (array_key_exists($key, $routes)) {
 
     $controllerClass = $routes["$httpMethod|$pathInfo"];
