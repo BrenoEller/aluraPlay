@@ -17,10 +17,11 @@ class VideoRepositorio
     public function addVideo(Video $video): bool
     {
         
-        $sql = "INSERT INTO videos (url, title) VALUES (?, ?);";
+        $sql = "INSERT INTO videos (url, title, image_path) VALUES (?, ?, ?);";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $video->url);
         $statement->bindValue(2, $video->title);
+        $statement->bindValue(3, $video->filePath);
 
         $result = $statement->execute();
 
@@ -42,13 +43,25 @@ class VideoRepositorio
 
     public function updateVideo(Video $video): bool 
     {
-
-        $sql = "UPDATE videos SET url = ?, title = ? WHERE id = ?;";
+        $updateImageSql = '';
+        if ($video->getFilePath() !== null) {
+            $updateImageSql = ', image_path = :image_path';
+        }
+        $sql = "UPDATE videos SET
+                url = :url,
+                title = :title
+                $updateImageSql
+            WHERE id = :id;";
         $statement = $this->pdo->prepare($sql);
-        $statement->bindValue(1, $video->url);
-        $statement->bindValue(2, $video->title);
-        $statement->bindValue(3, $video->id);
-        
+
+        $statement->bindValue(':url', $video->url);
+        $statement->bindValue(':title', $video->title);
+        $statement->bindValue(':id', $video->id, PDO::PARAM_INT);
+
+        if ($video->getFilePath() !== null) {
+            $statement->bindValue(':image_path', $video->getFilePath());
+        }
+
         return $statement->execute();
     }
 
@@ -61,6 +74,7 @@ class VideoRepositorio
 
             $video = new Video($videoData['url'], $videoData['title']);
             $video->setId($videoData['id']);
+            $video->setFilePath($videoData['image_path']);
             return $video;
         }, $videoList);
 
@@ -80,6 +94,9 @@ class VideoRepositorio
     {
         $video = new Video($videoData['url'], $videoData['title']);
         $video->setId($videoData['id']);
+        if ($videoData['image_path'] !== null) {
+            $video->setFilePath($videoData['image_path']);
+        }
 
         return $video;
     }
