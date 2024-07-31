@@ -6,7 +6,7 @@ namespace Alura\Mvc\Controller;
 
 use Alura\Mvc\Repository\VideoRepositorio;
 
-class VideoListController
+class VideoListController extends ControllerWithHtml implements Controller
 {
     public function __construct(private VideoRepositorio $videoRepository)
     {
@@ -16,7 +16,9 @@ class VideoListController
     public function processaRequisicao(): void
     {
         $videos = $this->videoRepository->all();
-        require_once __DIR__ . "/../../view/listagem-videos.php";
-        
+        echo $this->renderTemplate(
+            'listagem-videos',
+            ['videos' => $videos]
+        );
     }
 }

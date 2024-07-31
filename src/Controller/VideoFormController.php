@@ -4,7 +4,7 @@ namespace Alura\Mvc\Controller;
 use Alura\Mvc\Entity\Video;
 use Alura\Mvc\Repository\VideoRepositorio;
 
-class VideoFormController implements Controller
+class VideoFormController extends ControllerWithHtml implements Controller
 {
 
     public function __construct(private VideoRepositorio $videoRepository)
@@ -21,6 +21,8 @@ class VideoFormController implements Controller
             $video = $this->videoRepository->find($id);
         }
 
-        require_once __DIR__ . "/../../view/formulario.php";
+        echo $this->renderTemplate('formulario', [
+            'video' => $video,
+        ]);
     }
 }
