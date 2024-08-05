@@ -3,11 +3,17 @@
 namespace Alura\Mvc\Controller;
 
 use PDO;
+use Alura\Mvc\Helper\FlashMessageTrait;
+use Alura\Mvc\Helper\HtmlRendererTrait;
+
 
 class LoginController implements Controller
 {
 
     private $pdo;
+
+    use FlashMessageTrait, 
+    HtmlRendererTrait;
 
     public function __construct()
     {
@@ -38,7 +44,8 @@ class LoginController implements Controller
             $_SESSION['logado'] = true;
             header('Location: /');
         } else {
-            header('Location: /login?sucesso=0');
+            $this->addErrorMessage('Usuário ou senha inválidos');
+            header('Location: /login');
         }
     }
 }
