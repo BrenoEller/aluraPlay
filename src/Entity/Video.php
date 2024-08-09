@@ -52,7 +52,7 @@ class Video
         return $this->filePath;
     }
 
-    public function setFilePath(string $filePath): void
+    public function setFilePath(?string $filePath): void
     {
 
         $this->filePath = $filePath;
