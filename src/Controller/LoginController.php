@@ -15,8 +15,7 @@ class LoginController implements RequestHandlerInterface
 
     private $pdo;
 
-    use FlashMessageTrait, 
-    HtmlRendererTrait;
+    use FlashMessageTrait;
 
     public function __construct()
     {

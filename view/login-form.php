@@ -1,5 +1,5 @@
 <?php
-    require_once 'inicio-html.php';
+$this->layout('layout');
 ?>
 <main class="container">
     <form class="container__formulario" method="POST">
@@ -17,6 +17,3 @@
             <input class="formulario__botao" type="submit" value="Entrar" />
     </form>
 </main>
-<?php
-    require_once 'fim-html.php';
-?>

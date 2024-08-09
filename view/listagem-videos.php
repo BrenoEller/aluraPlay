@@ -1,5 +1,5 @@
 <?php
-    require_once 'inicio-html.php';
+$this->layout('layout');
 ?>
 <ul class="videos__container" alt="videos alura">
     <?php foreach($videos as $video): ?>
@@ -25,6 +25,3 @@
         </li>
     <?php endforeach; ?>
 </ul>
-<?php
-    require_once 'fim-html.php';
-?>

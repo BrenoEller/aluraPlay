@@ -1,5 +1,5 @@
 <?php
-    require_once 'inicio-html.php';
+$this->layout('layout');
 ?>
 <main class="container">
     <form class="container__formulario" method="POST" enctype="multipart/form-data">
@@ -21,5 +21,3 @@
             <input class="formulario__botao" type="submit" value="Enviar" />
     </form>
 </main>
-<?php
-    require_once 'fim-html.php';
